@@ -1,0 +1,7 @@
+vote_loc_id,vote_loc_name,vote_loc_lat,vote_loc_lon,vote_choice,total_votes
+1,Madison,43.066667,-89.4,Yes,84022
+2,Madison,43.066667,-89.4,No,55016
+3,Sun Prairie,43.183603,-89.232336,Yes,2010
+4,Sun Prairie,43.183603,-89.232336,No,17055
+5,Fitchburg,43.006389,-89.431389,Yes,7100
+6,Fitchburg,43.006389,-89.431389,No,1600
