@@ -11,8 +11,8 @@ def computeSphericalDistance(vote_loc,proj_loc):
 	
     degrees_to_radians = math.pi/180.0
         
-    phi1 = (90.0 - proj_loc["Lat"])*degrees_to_radians
-    phi2 = (90.0 - vote_loc["Lat"])*degrees_to_radians
+    phi1 = (90.000 - proj_loc["Lat"])*degrees_to_radians
+    phi2 = (90.000 - vote_loc["Lat"])*degrees_to_radians
         
     theta1 = proj_loc["Lon"]*degrees_to_radians
     theta2 = vote_loc["Lon"]*degrees_to_radians
@@ -22,7 +22,8 @@ def computeSphericalDistance(vote_loc,proj_loc):
 
 	# Return in kilometers
     return arc * 6371
-    
+
+  
 
 # A function that takes a number of votes a given distance from a project and weights them
 
@@ -68,10 +69,11 @@ proj_loc = { "Lat" : proj_lat, "Lon": proj_lon }
 tabulator = { }
 	
 
+
 try:
 	vt = open ( vote_table )
 except IOError:
-	print( "File opening failed!" )
+	print( "File opening failed! Make sure you've entered the correct file name." )
 
 
 entries = csv.DictReader( vt )
@@ -94,10 +96,3 @@ for row in entries:
 for choice, count in tabulator.items():
 	print str(choice) + '\t\t' + str(count)
 
-
-
-
-
-
-
-# print computeSphericalDistance(madison,chicago) 
