@@ -1,0 +1,315 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+
+{
+"type": "Feature",
+"properties": {
+"Location": "Ashland/Stokes Bridge",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.27082,
+34.21908
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Ashwood",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.27082,
+34.21908
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Bishopville 1",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.24723939,
+34.2169428
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Bishopville 2",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.24593133,
+34.21760372
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Bishopville 3",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.25804048,
+34.22285364
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Bishopville 4",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.25174895,
+34.22584472
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Cedar Creek",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.27082,
+34.21908
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Cypress",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.29870553,
+34.1664303
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Elliott",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.110297,
+34.038853
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Hickory Hill",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.34860447,
+34.17314508
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Ionia",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.40472349,
+34.19712665
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Lynchburg",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.110297,
+34.038853
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Manville",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.28448569,
+34.15407352
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Mt. Clio",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.21019259,
+34.14582661
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Rattlesnake Springs",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.60556,
+34.31304
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Schrocks Mill/Lucknow",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.27082,
+34.21908
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "South Lynchburg",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.110297,
+34.038853
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Spring Hill",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.5048,
+34.09208
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "St. Charles",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.208008,
+33.983524
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "St. Matthews",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.26501446,
+34.28853627
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Turkey Creek",
+"Accuracy": "3"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.29067467,
+34.31373569
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"Location": "Woodrow",
+"Accuracy": "9"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+-80.324377,
+33.941345
+]
+}
+}
+
+]
+}
