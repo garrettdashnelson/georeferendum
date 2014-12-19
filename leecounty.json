@@ -1,315 +1,313 @@
 {
   "type": "FeatureCollection",
   "features": [
-
-{
-"type": "Feature",
-"properties": {
-"Location": "Ashland/Stokes Bridge",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.27082,
-34.21908
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Ashwood",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.27082,
-34.21908
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Bishopville 1",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.24723939,
-34.2169428
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Bishopville 2",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.24593133,
-34.21760372
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Bishopville 3",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.25804048,
-34.22285364
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Bishopville 4",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.25174895,
-34.22584472
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Cedar Creek",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.27082,
-34.21908
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Cypress",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.29870553,
-34.1664303
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Elliott",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.110297,
-34.038853
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Hickory Hill",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.34860447,
-34.17314508
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Ionia",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.40472349,
-34.19712665
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Lynchburg",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.110297,
-34.038853
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Manville",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.28448569,
-34.15407352
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Mt. Clio",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.21019259,
-34.14582661
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Rattlesnake Springs",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.60556,
-34.31304
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Schrocks Mill/Lucknow",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.27082,
-34.21908
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "South Lynchburg",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.110297,
-34.038853
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Spring Hill",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.5048,
-34.09208
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "St. Charles",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.208008,
-33.983524
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "St. Matthews",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.26501446,
-34.28853627
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Turkey Creek",
-"Accuracy": "3"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.29067467,
-34.31373569
-]
-}
-},
-{
-"type": "Feature",
-"properties": {
-"Location": "Woodrow",
-"Accuracy": "9"
-},
-"geometry": {
-"type": "Point",
-"coordinates": [
--80.324377,
-33.941345
-]
-}
-}
-
-]
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Ashland/Stokes Bridge",
+        "address": "3018 Una Rd Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.1826899,
+          34.2923147
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Ashwood",
+        "address": "15 Williamson Road Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.321133,
+          34.11686
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Bishopville 1",
+        "address": "122 E Church Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2474446,
+          34.21699419999999
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Bishopville 2",
+        "address": "113 E Council St Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2466638,
+          34.2182724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Bishopville 3",
+        "address": "120 Barnett Dr Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2573534,
+          34.22334379999999
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Bishopville 4",
+        "address": "310 Roland Ave Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.25183249999999,
+          34.2258679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Cedar Creek",
+        "address": "3002 Camden Hwy Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4311417,
+          34.2217026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Cypress",
+        "address": "2346 15 N Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.3056469,
+          34.1375574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Elliott",
+        "address": "16 Clarence McFadden Rd Lynchburg SC 29080"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.1580084,
+          34.1098601
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Hickory Hill",
+        "address": "1407 Jamestown Rd Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.35080119999999,
+          34.1736271
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Ionia",
+        "address": "763 McCaskill Rd Camden SC 29020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.6070237,
+          34.24653929999999
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Lynchburg",
+        "address": "65 Montgomery Cir Lynchburg SC 29080"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.07630929999999,
+          34.0562956
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Manville",
+        "address": "510 Manville-Wisacky Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.28495079999999,
+          34.15427620000001
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Mt. Clio",
+        "address": "789 Coopers Mill Rd Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2096155,
+          34.1459146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Rattlesnake Springs",
+        "address": "4238 Red Hill Rd Camden SC 29020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4297172,
+          34.1733535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Schrocks Mill/Lucknow",
+        "address": "354 Old Camden Rd Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.370154,
+          34.27702
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "South Lynchburg",
+        "address": "24 Back Swamp Rd Lynchburg SC 29080"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.0205598,
+          34.0532178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Spring Hill",
+        "address": "3980 Springhill Rd Rembert SC 29128"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.4292735,
+          34.1453054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "St. Charles",
+        "address": "26 Lower Lee School Rd Mayesville SC 29104"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2489941,
+          34.0832805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "St. Matthews",
+        "address": "2144 Stokes Br Rd W Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2694808,
+          34.2870414
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Turkey Creek",
+        "address": "2386 Hubb Kelley Rd Bishopville SC 29010"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.3414504,
+          34.2899294
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "precinct": "Woodrow",
+        "address": "2738 Woodrow Rd Sumter SC 29153"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.3594722,
+          34.1136865
+        ]
+      }
+    }
+  ]
 }
