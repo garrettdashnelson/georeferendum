@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import math
-import csv
+import json
 
 
 # A function that computes the distance between two points
@@ -43,12 +43,18 @@ if ( decay_weight == "" ) :
 else :
 	decay_weight = float(decay_weight)
 	
-	
 
-vote_table = raw_input('➔ What is the name of the vote tally file? (Default: vote_tally.csv): ')
+precincts_table = raw_input('➔ What is the name of the precincts file? (Default: precincts.json): ')
 
 if ( vote_table == "" ) :
-	vote_table = "vote_tally.csv"
+	vote_table = "precincts.json"
+	
+	
+
+vote_table = raw_input('➔ What is the name of the vote tally file? (Default: votes.json): ')
+
+if ( vote_table == "" ) :
+	vote_table = "votes.json"
 	
 proj_lat = ''
 while not proj_lat:

@@ -5,7 +5,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Ashland/Stokes Bridge",
-        "address": "3018 Una Rd Bishopville SC 29010"
+        "address": "3018 Una Rd Bishopville SC 29010",
+        "id": 1
       },
       "geometry": {
         "type": "Point",
@@ -19,7 +20,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Ashwood",
-        "address": "15 Williamson Road Bishopville SC 29010"
+        "address": "15 Williamson Road Bishopville SC 29010",
+        "id": 2
       },
       "geometry": {
         "type": "Point",
@@ -33,7 +35,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Bishopville 1",
-        "address": "122 E Church Bishopville SC 29010"
+        "address": "122 E Church Bishopville SC 29010",
+        "id": 3
       },
       "geometry": {
         "type": "Point",
@@ -47,7 +50,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Bishopville 2",
-        "address": "113 E Council St Bishopville SC 29010"
+        "address": "113 E Council St Bishopville SC 29010",
+        "id": 4
       },
       "geometry": {
         "type": "Point",
@@ -61,7 +65,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Bishopville 3",
-        "address": "120 Barnett Dr Bishopville SC 29010"
+        "address": "120 Barnett Dr Bishopville SC 29010",
+        "id": 5
       },
       "geometry": {
         "type": "Point",
@@ -75,7 +80,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Bishopville 4",
-        "address": "310 Roland Ave Bishopville SC 29010"
+        "address": "310 Roland Ave Bishopville SC 29010",
+        "id": 6
       },
       "geometry": {
         "type": "Point",
@@ -89,7 +95,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Cedar Creek",
-        "address": "3002 Camden Hwy Bishopville SC 29010"
+        "address": "3002 Camden Hwy Bishopville SC 29010",
+        "id": 7
       },
       "geometry": {
         "type": "Point",
@@ -103,7 +110,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Cypress",
-        "address": "2346 15 N Bishopville SC 29010"
+        "address": "2346 15 N Bishopville SC 29010",
+        "id": 8
       },
       "geometry": {
         "type": "Point",
@@ -117,7 +125,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Elliott",
-        "address": "16 Clarence McFadden Rd Lynchburg SC 29080"
+        "address": "16 Clarence McFadden Rd Lynchburg SC 29080",
+        "id": 9
       },
       "geometry": {
         "type": "Point",
@@ -131,7 +140,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Hickory Hill",
-        "address": "1407 Jamestown Rd Bishopville SC 29010"
+        "address": "1407 Jamestown Rd Bishopville SC 29010",
+        "id": 10
       },
       "geometry": {
         "type": "Point",
@@ -145,7 +155,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Ionia",
-        "address": "763 McCaskill Rd Camden SC 29020"
+        "address": "763 McCaskill Rd Camden SC 29020",
+        "id": 11
       },
       "geometry": {
         "type": "Point",
@@ -159,7 +170,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Lynchburg",
-        "address": "65 Montgomery Cir Lynchburg SC 29080"
+        "address": "65 Montgomery Cir Lynchburg SC 29080",
+        "id": 12
       },
       "geometry": {
         "type": "Point",
@@ -173,7 +185,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Manville",
-        "address": "510 Manville-Wisacky Bishopville SC 29010"
+        "address": "510 Manville-Wisacky Bishopville SC 29010",
+        "id": 13
       },
       "geometry": {
         "type": "Point",
@@ -187,7 +200,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Mt. Clio",
-        "address": "789 Coopers Mill Rd Bishopville SC 29010"
+        "address": "789 Coopers Mill Rd Bishopville SC 29010",
+        "id": 14
       },
       "geometry": {
         "type": "Point",
@@ -201,7 +215,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Rattlesnake Springs",
-        "address": "4238 Red Hill Rd Camden SC 29020"
+        "address": "4238 Red Hill Rd Camden SC 29020",
+        "id": 15
       },
       "geometry": {
         "type": "Point",
@@ -215,7 +230,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Schrocks Mill/Lucknow",
-        "address": "354 Old Camden Rd Bishopville SC 29010"
+        "address": "354 Old Camden Rd Bishopville SC 29010",
+        "id": 16
       },
       "geometry": {
         "type": "Point",
@@ -229,7 +245,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "South Lynchburg",
-        "address": "24 Back Swamp Rd Lynchburg SC 29080"
+        "address": "24 Back Swamp Rd Lynchburg SC 29080",
+        "id": 17
       },
       "geometry": {
         "type": "Point",
@@ -243,7 +260,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Spring Hill",
-        "address": "3980 Springhill Rd Rembert SC 29128"
+        "address": "3980 Springhill Rd Rembert SC 29128",
+        "id": 18
       },
       "geometry": {
         "type": "Point",
@@ -257,7 +275,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "St. Charles",
-        "address": "26 Lower Lee School Rd Mayesville SC 29104"
+        "address": "26 Lower Lee School Rd Mayesville SC 29104",
+        "id": 19
       },
       "geometry": {
         "type": "Point",
@@ -271,7 +290,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "St. Matthews",
-        "address": "2144 Stokes Br Rd W Bishopville SC 29010"
+        "address": "2144 Stokes Br Rd W Bishopville SC 29010",
+        "id": 20
       },
       "geometry": {
         "type": "Point",
@@ -285,7 +305,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Turkey Creek",
-        "address": "2386 Hubb Kelley Rd Bishopville SC 29010"
+        "address": "2386 Hubb Kelley Rd Bishopville SC 29010",
+        "id": 21
       },
       "geometry": {
         "type": "Point",
@@ -299,7 +320,8 @@
       "type": "Feature",
       "properties": {
         "precinct": "Woodrow",
-        "address": "2738 Woodrow Rd Sumter SC 29153"
+        "address": "2738 Woodrow Rd Sumter SC 29153",
+        "id": 22
       },
       "geometry": {
         "type": "Point",
