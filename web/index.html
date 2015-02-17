@@ -20,6 +20,11 @@
         <h1>Propinquity vote project</h1>
 
         <div id="vote-box"></div>
+        <div id="calc_box">
+        <input type="text" id="weight" value="0.02">
+        <input type="button" value="Change Weight Value" onClick="SimpleDisplayCalculator('#vote-box','leecounty.json','landfill_referendum.json',[-80.1826899, 34.2923147],$('#weight').val());">
+
+        </div>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
@@ -35,7 +40,7 @@
 
         <script>
 
-        SimpleDisplayCalculator("#vote-box");
+        SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.1826899, 34.2923147],0.02);
 
         </script>
     </body>
