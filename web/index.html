@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
 
+        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
@@ -19,17 +21,36 @@
 
         <h1>Propinquity vote project</h1>
 
+
+        <div id="mapbox"></div>
+
+
         <div id="vote-box"></div>
         <div id="calc_box">
-        <input type="text" id="weight" value="0.02">
+        <div id="weight_slider" style="width: 80%;margin: 0 0 20px 0; clear: both;">
+        <div style="clear:both;"></div>
+        <div id="weight" style="clear:both;">0.02</div>
+        
+        <!---
         <input type="button" value="Change Weight Value" onClick="SimpleDisplayCalculator('#vote-box','leecounty.json','landfill_referendum.json',[-80.1826899, 34.2923147],$('#weight').val());">
-
+		-->
+		
         </div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<!-- jQuery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        
+        <!-- jQuery UI -->
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+
+        <!-- Defiant.js, used for searching JSON with XPATH -->
         <script src="js/vendor/defiant.min.js"></script>
 
+        <!-- Mapbox API -->
+        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
 
 
         <script src="js/plugins.js"></script>
@@ -40,7 +61,32 @@
 
         <script>
 
-        SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.1826899, 34.2923147],0.02);
+ 		L.mapbox.accessToken = "pk.eyJ1IjoiZ2FycmV0dG5lbHNvbiIsImEiOiJobnR2YjdRIn0.iANqBs5R5cw3euoH_62X4g";
+        var the_map = L.mapbox.map('mapbox','examples.map-i86nkdio');
+
+        var geo_file = "../data/leecounty.json";
+
+
+        var precincts_layer = L.mapbox.featureLayer().loadURL(geo_file).addTo(the_map);
+
+    	precincts_layer.on('ready',function() {
+        the_map.fitBounds(precincts_layer.getBounds()); });
+
+		console.log(precincts_layer);
+
+
+        SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],0.02);
+
+			
+		$("#weight_slider").slider( {
+			value: 10,
+			change: function(event,ui) { 
+			
+					changed_weight_val = ui.value/500;
+					$("#weight").html( changed_weight_val );
+					SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],changed_weight_val);  }
+			}
+		 );
 
         </script>
     </body>

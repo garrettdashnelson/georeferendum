@@ -1,4 +1,5 @@
 
+
 function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location, weight_value) {
 
 
@@ -86,11 +87,19 @@ function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
 
   $.each(vote_data.precincts, function() {
 
+    // console.log(this.id);
+
     var precinct_id = this.id;
 
-    var precinct_location = JSON.search(geo_data, '//features[properties/id=' + precinct_id + ']');
+    var precinct_location = JSON.search(geo_data, '//features[properties/id=' + precinct_id + ']', true);
 
-    var vote_multiplier = CalculateWeightMultiplier(precinct_location, center_location, weight_value);
+    if (precinct_location.length > 0) {
+
+      var vote_multiplier = CalculateWeightMultiplier(precinct_location, center_location, weight_value);
+
+    } else {
+      var vote_multiplier = 0;
+    }
 
     var votes = this.votes;
 
@@ -108,5 +117,5 @@ function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
 
   });
 
-return weighted_vote_table;
+  return weighted_vote_table;
 }
