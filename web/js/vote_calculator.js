@@ -1,9 +1,9 @@
 
 
-function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location, weight_value) {
+function displayWeightedVote(output_id, data_file, center_location, weight_value) {
 
 
-  var weighted_vote_table = VoteCalculator(geo_file, vote_file, center_location, weight_value);
+  var weighted_vote_table = voteCalculator(data_file, center_location, weight_value);
 
   var html_fill = "";
 
@@ -22,7 +22,7 @@ function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location
 
 
 
-function CalculateWeightMultiplier(precinct_location, center_location, weight_value) {
+function calculateWeightMultiplier(precinct_location, center_location, weight_value) {
 
   //Compute the spherical distance in arc length
   var degrees_to_radians = Math.PI / 180.000;
@@ -48,18 +48,18 @@ function CalculateWeightMultiplier(precinct_location, center_location, weight_va
 
 
 
-function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
+function voteCalculator(data_file, center_location, weight_value) {
 
 
   var weighted_vote_table = {};
 
-  // Load the GeoJSON file to variable geo_data
-  var geo_data = (function() {
+  // Load the data file to variable 'data'
+  var data = (function() {
     var json = null;
     $.ajax({
       'async': false,
       'global': false,
-      'url': '../data/' + geo_file,
+      'url': '../data/' + data_file,
       'dataType': "json",
       'success': function(data) {
         json = data;
@@ -68,21 +68,6 @@ function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
     return json;
   })();
 
-  // Load the vote table file to variable vote_data
-
-  var vote_data = (function() {
-    var json = null;
-    $.ajax({
-      'async': false,
-      'global': false,
-      'url': '../data/' + vote_file,
-      'dataType': "json",
-      'success': function(data) {
-        json = data;
-      }
-    });
-    return json;
-  })();
 
 
   $.each(vote_data.precincts, function() {

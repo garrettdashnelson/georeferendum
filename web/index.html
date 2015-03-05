@@ -45,7 +45,6 @@
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
-
         <!-- Defiant.js, used for searching JSON with XPATH -->
         <script src="js/vendor/defiant.min.js"></script>
 
@@ -64,18 +63,21 @@
  		L.mapbox.accessToken = "pk.eyJ1IjoiZ2FycmV0dG5lbHNvbiIsImEiOiJobnR2YjdRIn0.iANqBs5R5cw3euoH_62X4g";
         var the_map = L.mapbox.map('mapbox','examples.map-i86nkdio');
 
-        var geo_file = "../data/leecounty.json";
+        var data_file = "../data/leecounty_landfill_referendum.json";
+        var project_location = [-80.276341, 34.18014];
 
 
-        var precincts_layer = L.mapbox.featureLayer().loadURL(geo_file).addTo(the_map);
+        var precincts_layer = L.mapbox.featureLayer().loadURL(data_file).addTo(the_map);
+
 
     	precincts_layer.on('ready',function() {
+    	
         the_map.fitBounds(precincts_layer.getBounds()); });
 
-		console.log(precincts_layer);
+// 		console.log(precincts_layer);
 
-
-        SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],0.02);
+		
+		displayWeightedVote("#vote-box",data_file,project_location,0.02);
 
 			
 		$("#weight_slider").slider( {
@@ -84,9 +86,12 @@
 			
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
-					SimpleDisplayCalculator("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],changed_weight_val);  }
+					
+					displayWeightedVote("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],changed_weight_val);  }
 			}
 		 );
+
+		
 
         </script>
     </body>
