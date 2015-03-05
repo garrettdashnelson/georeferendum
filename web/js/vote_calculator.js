@@ -5,6 +5,8 @@ function displayWeightedVote(output_id, data_file, center_location, weight_value
 
   var weighted_vote_table = voteCalculator(data_file, center_location, weight_value);
 
+// console.log(weighted_vote_table);
+
   var html_fill = "";
 
   for (key in weighted_vote_table) {
@@ -27,9 +29,9 @@ function calculateWeightMultiplier(precinct_location, center_location, weight_va
   //Compute the spherical distance in arc length
   var degrees_to_radians = Math.PI / 180.000;
 
-  var phi1 = (90.000 - precinct_location[0].geometry.coordinates[1]) * degrees_to_radians;
+  var phi1 = (90.000 - precinct_location[1]) * degrees_to_radians;
   var phi2 = (90.000 - center_location[1]) * degrees_to_radians;
-  var theta1 = precinct_location[0].geometry.coordinates[0] * degrees_to_radians;
+  var theta1 = precinct_location[0] * degrees_to_radians;
   var theta2 = center_location[0] * degrees_to_radians;
 
   var cos = (Math.sin(phi1) * Math.sin(phi2) * Math.cos(theta1 - theta2) + Math.cos(phi1) * Math.cos(phi2));
@@ -68,28 +70,21 @@ function voteCalculator(data_file, center_location, weight_value) {
     return json;
   })();
 
+// console.log(data.features);
+
+  $.each(data.features, function() {
+
+// console.log(this.geometry.coordinates);
 
 
-  $.each(vote_data.precincts, function() {
+	var vote_multiplier = calculateWeightMultiplier(this.geometry.coordinates, center_location, weight_value);
+// console.log(vote_multiplier);
 
-    // console.log(this.id);
-
-    var precinct_id = this.id;
-
-    var precinct_location = JSON.search(geo_data, '//features[properties/id=' + precinct_id + ']', true);
-
-    if (precinct_location.length > 0) {
-
-      var vote_multiplier = CalculateWeightMultiplier(precinct_location, center_location, weight_value);
-
-    } else {
-      var vote_multiplier = 0;
-    }
-
-    var votes = this.votes;
-
+	var votes = this.properties.votes;
+// console.log(votes);
     for (var key in votes) {
-      this_vote_choice = votes[key];
+      this_vote_choice = key;
+      console.log(this_vote_choice);
       for (var key in this_vote_choice) {
         vote_answer = key;
         if (weighted_vote_table[vote_answer] == null) {
@@ -102,5 +97,7 @@ function voteCalculator(data_file, center_location, weight_value) {
 
   });
 
+// console.log(weighted_vote_table);
   return weighted_vote_table;
+  
 }
