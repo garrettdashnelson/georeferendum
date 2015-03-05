@@ -5,8 +5,8 @@
       "type": "Feature",
       "properties": {
         "votes": {
-          "yes": 36,
-          "no": 70
+          "yes": 154,
+          "no": 166
         },
         "precinct": "Ashland/Stokes Bridge",
         "address": "3018 Una Rd Bishopville SC 29010",

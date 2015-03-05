@@ -1,9 +1,15 @@
 
 
-function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location, weight_value) {
+function displayWeightedVote(output_id, data_file, center_location, weight_value) {
 
 
-  var weighted_vote_table = VoteCalculator(geo_file, vote_file, center_location, weight_value);
+  var weighted_vote_table = voteCalculator(data_file, center_location, weight_value);
+
+// console.log(weighted_vote_table);
+
+	var total_votes = 0;
+	$.each(weighted_vote_table, function(key, val) { total_votes += val; } );
+	console.log(total_votes);
 
   var html_fill = "";
 
@@ -12,6 +18,9 @@ function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location
     html_fill += key;
     html_fill += ":";
     html_fill += weighted_vote_table[key];
+    html_fill += " (";
+    html_fill += weighted_vote_table[key]/total_votes * 100;
+    html_fill += "%)";
     html_fill += "<br>";
 
   }
@@ -22,15 +31,15 @@ function SimpleDisplayCalculator(output_id, geo_file, vote_file, center_location
 
 
 
-function CalculateWeightMultiplier(precinct_location, center_location, weight_value) {
+function calculateWeightMultiplier(precinct_location, center_location, weight_value) {
 
   //Compute the spherical distance in arc length
   var degrees_to_radians = Math.PI / 180.000;
 
-  var phi1 = (90.000 - precinct_location[0].geometry.coordinates[1]) * degrees_to_radians;
-  var phi2 = (90.000 - center_location[1]) * degrees_to_radians;
-  var theta1 = precinct_location[0].geometry.coordinates[0] * degrees_to_radians;
-  var theta2 = center_location[0] * degrees_to_radians;
+  var phi1 = (90.000 - precinct_location[1]) * degrees_to_radians;
+  var phi2 = (90.000 - center_location[0]) * degrees_to_radians;
+  var theta1 = precinct_location[0] * degrees_to_radians;
+  var theta2 = center_location[1] * degrees_to_radians;
 
   var cos = (Math.sin(phi1) * Math.sin(phi2) * Math.cos(theta1 - theta2) + Math.cos(phi1) * Math.cos(phi2));
   var arc = Math.acos(cos);
@@ -48,18 +57,18 @@ function CalculateWeightMultiplier(precinct_location, center_location, weight_va
 
 
 
-function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
+function voteCalculator(data_file, center_location, weight_value) {
 
 
   var weighted_vote_table = {};
 
-  // Load the GeoJSON file to variable geo_data
-  var geo_data = (function() {
+  // Load the data file to variable 'data'
+  var data = (function() {
     var json = null;
     $.ajax({
       'async': false,
       'global': false,
-      'url': '../data/' + geo_file,
+      'url': '../data/' + data_file,
       'dataType': "json",
       'success': function(data) {
         json = data;
@@ -68,54 +77,33 @@ function VoteCalculator(geo_file, vote_file, center_location, weight_value) {
     return json;
   })();
 
-  // Load the vote table file to variable vote_data
+// console.log(data.features);
 
-  var vote_data = (function() {
-    var json = null;
-    $.ajax({
-      'async': false,
-      'global': false,
-      'url': '../data/' + vote_file,
-      'dataType': "json",
-      'success': function(data) {
-        json = data;
-      }
-    });
-    return json;
-  })();
+  $.each(data.features, function() {
+
+// console.log(this.geometry.coordinates);
 
 
-  $.each(vote_data.precincts, function() {
+	var vote_multiplier = calculateWeightMultiplier(this.geometry.coordinates, center_location, weight_value);
+// console.log(vote_multiplier);
 
-    // console.log(this.id);
-
-    var precinct_id = this.id;
-
-    var precinct_location = JSON.search(geo_data, '//features[properties/id=' + precinct_id + ']', true);
-
-    if (precinct_location.length > 0) {
-
-      var vote_multiplier = CalculateWeightMultiplier(precinct_location, center_location, weight_value);
-
-    } else {
-      var vote_multiplier = 0;
-    }
-
-    var votes = this.votes;
-
+	var votes = this.properties.votes;
+// console.log(votes);
     for (var key in votes) {
-      this_vote_choice = votes[key];
-      for (var key in this_vote_choice) {
-        vote_answer = key;
-        if (weighted_vote_table[vote_answer] == null) {
-          weighted_vote_table[vote_answer] = this_vote_choice[key] * vote_multiplier;
+
+
+	if (weighted_vote_table[key] == null) {
+
+          weighted_vote_table[key] = votes[key] * vote_multiplier;
         } else {
-          weighted_vote_table[vote_answer] += this_vote_choice[key] * vote_multiplier;
+          weighted_vote_table[key] += votes[key] * vote_multiplier;
         }
-      }
+      
     }
 
   });
 
+// console.log(weighted_vote_table);
   return weighted_vote_table;
+
 }
