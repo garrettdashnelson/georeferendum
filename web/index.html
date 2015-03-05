@@ -64,7 +64,7 @@
         var the_map = L.mapbox.map('mapbox','examples.map-i86nkdio');
 
         var data_file = "../data/leecounty_landfill_referendum.json";
-        var project_location = [-80.276341, 34.18014];
+        var project_location = [34.18014, -80.276341];
 
 
         var precincts_layer = L.mapbox.featureLayer().loadURL(data_file).addTo(the_map);
@@ -74,9 +74,10 @@
     	
         the_map.fitBounds(precincts_layer.getBounds()); });
 
-// 		console.log(precincts_layer);
+		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
+		project_marker.addTo(the_map);
 
-		
+
 		displayWeightedVote("#vote-box",data_file,project_location,0.02);
 
 			
@@ -87,7 +88,7 @@
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
 					
-					displayWeightedVote("#vote-box","leecounty.json","landfill_referendum.json",[-80.276341, 34.18014],changed_weight_val);  }
+					displayWeightedVote("#vote-box",data_file,project_location,changed_weight_val);  }
 			}
 		 );
 
