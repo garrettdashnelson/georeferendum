@@ -1,5 +1,58 @@
 
 
+function voteObject(data_file) {
+
+	this.data_file = data_file;
+	this.json = ( function() {
+    	var json = null;
+			$.ajax({
+			  'async': false,
+			  'global': false,
+			  'url': '../data/' + data_file,
+			  'dataType': "json",
+			  'success': function(data) {
+				json = data;
+			  }
+			});
+			return json;
+		  })();
+	
+}
+
+
+voteObject.prototype = {
+
+	computeWeights: function(center_point, weight_value) {
+	
+	this.weightedJson = null;
+	this.weightedJson = this.json;
+	
+	for(precinct in this.weightedJson.features) { 
+
+		weighter = calculateWeightMultiplier( this.weightedJson.features[precinct].geometry.coordinates, center_point, weight_value );
+		
+			for( vote in this.weightedJson.features[precinct].properties.votes ) {
+			
+				this.weightedJson.features[precinct].properties.votes[vote] = this.weightedJson.features[precinct].properties.votes[vote] * weighter;
+				
+				}
+		
+		}
+		
+	},
+	
+	displayVoteTotals: function(display_div) {
+	
+		$(display_div).html("kaka");
+	
+	}
+	
+}
+
+
+
+
+
 function displayWeightedVote(output_id, data_file, center_location, weight_value) {
 
 

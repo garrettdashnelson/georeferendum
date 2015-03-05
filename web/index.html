@@ -45,8 +45,8 @@
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
-        <!-- Defiant.js, used for searching JSON with XPATH -->
-        <script src="js/vendor/defiant.min.js"></script>
+        <!-- D3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
         <!-- Mapbox API -->
         <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
@@ -65,22 +65,31 @@
 
         var data_file = "../data/leecounty_landfill_referendum.json";
         var project_location = [34.18014, -80.276341];
+        
+  
+  		v = new voteObject(data_file);
+		
+		v.computeWeights(project_location,0.02);
+
+		
+		map_data = v.weightedJson;
+        
 
 
-        var precincts_layer = L.mapbox.featureLayer().loadURL(data_file).addTo(the_map);
+	    var precincts_layer = the_map.featureLayer.setGeoJSON(map_data);
+	    
+	    precincts_layer.addTo(the_map);
+ 
+        the_map.fitBounds(precincts_layer.getBounds());
 
-
-    	precincts_layer.on('ready',function() {
-    	
-        the_map.fitBounds(precincts_layer.getBounds()); });
 
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
 		project_marker.addTo(the_map);
 
 
-		displayWeightedVote("#vote-box",data_file,project_location,0.02);
+		v.displayVoteTotals("#vote-box");
 
-			
+		/*	
 		$("#weight_slider").slider( {
 			value: 10,
 			change: function(event,ui) { 
@@ -92,7 +101,7 @@
 			}
 		 );
 
-		
+*/		
 
         </script>
     </body>
