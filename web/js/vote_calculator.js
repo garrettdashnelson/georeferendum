@@ -24,21 +24,21 @@ voteObject.prototype = {
 
 	computeWeights: function(center_point, weight_value) {
 	
-	this.weightedJson = $.extend(true,{},this.json);
+// 	this.weightedJson = $.extend(true,{},this.json);
 	this.voteResultTable = {};
 	
 // 	console.log(this.json);
 // 	console.log(this.voteResultTable);
 	
 	
-	for(precinct in this.weightedJson.features) { 
+	for(precinct in this.json.features) { 
 
-		weighter = calculateWeightMultiplier( this.weightedJson.features[precinct].geometry.coordinates, center_point, weight_value );
+		weighter = calculateWeightMultiplier( this.json.features[precinct].geometry.coordinates, center_point, weight_value );
+		this.json.features[precinct].properties.weightValue = weighter;
 		
-			for( vote in this.weightedJson.features[precinct].properties.votes ) {
+			for( vote in this.json.features[precinct].properties.votes ) {
 			
-				weighted_vote = this.weightedJson.features[precinct].properties.votes[vote] * weighter;
-				this.weightedJson.features[precinct].properties.votes[vote] = weighted_vote;
+				weighted_vote = this.json.features[precinct].properties.votes[vote] * weighter;
 				
 				if( this.voteResultTable[vote] == null ) {
 					
@@ -81,8 +81,36 @@ voteObject.prototype = {
 		
 		$(display_div).html(html_fill);
 	
+	},
+	
+	
+	
+	projectVisualization: function(map_id) {
+	
+	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
+	
+	this.votesLayer = L.geoJson(this.json, { pointToLayer: scaledPoint });
+	this.votesLayer.addTo(map_id);
+	
+	map_id.fitBounds(this.votesLayer.getBounds());
+
 	}
 	
+
+	
+}
+
+
+
+function scaledPoint(feature, latlng) {
+    return L.circleMarker(latlng, {
+        radius: 10,
+        fillColor: "#000",
+        fillOpacity: feature.properties.weightValue,
+        weight: 0.5,
+        color: '#fff'
+    });
+    
 }
 
 

@@ -68,10 +68,17 @@
         
   
   		v = new voteObject(data_file);
-		
+	
 		v.computeWeights(project_location,0.02);
-
 		
+// 		console.log(v);
+
+
+		v.projectVisualization(the_map);
+		
+		
+	
+		/*
 		map_data = v.weightedJson;
         
 
@@ -81,6 +88,8 @@
 	    precincts_layer.addTo(the_map);
  
         the_map.fitBounds(precincts_layer.getBounds());
+
+*/
 
 
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
@@ -98,7 +107,7 @@
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
 					
-					v.computeWeights(project_location,changed_weight_val);v.displayVoteTotals("#vote-box");console.log(v);  }
+					v.computeWeights(project_location,changed_weight_val);v.displayVoteTotals("#vote-box");v.projectVisualization(the_map); }
 			}
 		 );
 
