@@ -24,8 +24,12 @@ voteObject.prototype = {
 
 	computeWeights: function(center_point, weight_value) {
 	
-	this.weightedJson = null;
-	this.weightedJson = this.json;
+	this.weightedJson = $.extend(true,{},this.json);
+	this.voteResultTable = {};
+	
+// 	console.log(this.json);
+// 	console.log(this.voteResultTable);
+	
 	
 	for(precinct in this.weightedJson.features) { 
 
@@ -33,54 +37,55 @@ voteObject.prototype = {
 		
 			for( vote in this.weightedJson.features[precinct].properties.votes ) {
 			
-				this.weightedJson.features[precinct].properties.votes[vote] = this.weightedJson.features[precinct].properties.votes[vote] * weighter;
+				weighted_vote = this.weightedJson.features[precinct].properties.votes[vote] * weighter;
+				this.weightedJson.features[precinct].properties.votes[vote] = weighted_vote;
+				
+				if( this.voteResultTable[vote] == null ) {
+					
+					this.voteResultTable[vote] = weighted_vote;
+					
+				} else {
+				
+					this.voteResultTable[vote] += weighted_vote;
+				
+				}
 				
 				}
 		
 		}
 		
+	
+	
+	
+	
+		
 	},
+	
 	
 	displayVoteTotals: function(display_div) {
 	
-		$(display_div).html("kaka");
+	var html_fill = "";
+	var voteResultTable = this.voteResultTable;
+	
+	for (key in voteResultTable) {
+
+    html_fill += key;
+    html_fill += ":";
+    html_fill += voteResultTable[key];
+    html_fill += " (";
+//     html_fill += voteResultTable[key]/total_votes * 100;
+    html_fill += "%)";
+    html_fill += "<br>";
+
+  }
+		
+		$(display_div).html(html_fill);
 	
 	}
 	
 }
 
 
-
-
-
-function displayWeightedVote(output_id, data_file, center_location, weight_value) {
-
-
-  var weighted_vote_table = voteCalculator(data_file, center_location, weight_value);
-
-// console.log(weighted_vote_table);
-
-	var total_votes = 0;
-	$.each(weighted_vote_table, function(key, val) { total_votes += val; } );
-	console.log(total_votes);
-
-  var html_fill = "";
-
-  for (key in weighted_vote_table) {
-
-    html_fill += key;
-    html_fill += ":";
-    html_fill += weighted_vote_table[key];
-    html_fill += " (";
-    html_fill += weighted_vote_table[key]/total_votes * 100;
-    html_fill += "%)";
-    html_fill += "<br>";
-
-  }
-
-  $(output_id).html(html_fill);
-
-}
 
 
 
@@ -110,53 +115,3 @@ function calculateWeightMultiplier(precinct_location, center_location, weight_va
 
 
 
-function voteCalculator(data_file, center_location, weight_value) {
-
-
-  var weighted_vote_table = {};
-
-  // Load the data file to variable 'data'
-  var data = (function() {
-    var json = null;
-    $.ajax({
-      'async': false,
-      'global': false,
-      'url': '../data/' + data_file,
-      'dataType': "json",
-      'success': function(data) {
-        json = data;
-      }
-    });
-    return json;
-  })();
-
-// console.log(data.features);
-
-  $.each(data.features, function() {
-
-// console.log(this.geometry.coordinates);
-
-
-	var vote_multiplier = calculateWeightMultiplier(this.geometry.coordinates, center_location, weight_value);
-// console.log(vote_multiplier);
-
-	var votes = this.properties.votes;
-// console.log(votes);
-    for (var key in votes) {
-
-
-	if (weighted_vote_table[key] == null) {
-
-          weighted_vote_table[key] = votes[key] * vote_multiplier;
-        } else {
-          weighted_vote_table[key] += votes[key] * vote_multiplier;
-        }
-      
-    }
-
-  });
-
-// console.log(weighted_vote_table);
-  return weighted_vote_table;
-
-}

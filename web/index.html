@@ -86,10 +86,11 @@
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
 		project_marker.addTo(the_map);
 
-
+		
+		
 		v.displayVoteTotals("#vote-box");
 
-		/*	
+
 		$("#weight_slider").slider( {
 			value: 10,
 			change: function(event,ui) { 
@@ -97,11 +98,11 @@
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
 					
-					displayWeightedVote("#vote-box",data_file,project_location,changed_weight_val);  }
+					v.computeWeights(project_location,changed_weight_val);v.displayVoteTotals("#vote-box");console.log(v);  }
 			}
 		 );
 
-*/		
+	
 
         </script>
     </body>
