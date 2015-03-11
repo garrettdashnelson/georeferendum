@@ -71,25 +71,11 @@
 	
 		v.computeWeights(project_location,0.02);
 		
-// 		console.log(v);
 
 
 		v.projectVisualization(the_map);
-		
-		
-	
-		/*
-		map_data = v.weightedJson;
-        
+		console.log(v);
 
-
-	    var precincts_layer = the_map.featureLayer.setGeoJSON(map_data);
-	    
-	    precincts_layer.addTo(the_map);
- 
-        the_map.fitBounds(precincts_layer.getBounds());
-
-*/
 
 
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );

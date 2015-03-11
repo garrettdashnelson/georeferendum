@@ -24,31 +24,25 @@ voteObject.prototype = {
 
 	computeWeights: function(center_point, weight_value) {
 	
-// 	this.weightedJson = $.extend(true,{},this.json);
+	// Create blank voteResultTable object to hold tallied results
 	this.voteResultTable = {};
-	
-// 	console.log(this.json);
-// 	console.log(this.voteResultTable);
-	
-	
+
+	// Loop through features json object		
 	for(precinct in this.json.features) { 
 
+		// Calculate weight based on distance and passed weight_value
 		weighter = calculateWeightMultiplier( this.json.features[precinct].geometry.coordinates, center_point, weight_value );
+		
+		// Create properties.weightValue variable for feature
 		this.json.features[precinct].properties.weightValue = weighter;
 		
+			// Compute each vote amount and add to voteResultTable for tally
 			for( vote in this.json.features[precinct].properties.votes ) {
 			
 				weighted_vote = this.json.features[precinct].properties.votes[vote] * weighter;
 				
-				if( this.voteResultTable[vote] == null ) {
-					
-					this.voteResultTable[vote] = weighted_vote;
-					
-				} else {
-				
-					this.voteResultTable[vote] += weighted_vote;
-				
-				}
+				if( this.voteResultTable[vote] == null ) { this.voteResultTable[vote] = weighted_vote; }
+				else { this.voteResultTable[vote] += weighted_vote; }
 				
 				}
 		
@@ -80,6 +74,25 @@ voteObject.prototype = {
   }
 		
 		$(display_div).html(html_fill);
+	
+	},
+	
+	
+	new_projectVisualization: function(map_id) {
+	
+	this.svg = d3.select(map_id.getPanes().overlayPane).append("svg");
+	var svg = this.svg;
+ 	var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+	
+	for(precinct in this.json.features) { 
+	
+	
+	
+	}
+
+	
+	
+	
 	
 	},
 	
