@@ -78,30 +78,13 @@ voteObject.prototype = {
 	},
 	
 	
-	new_projectVisualization: function(map_id) {
-	
-	this.svg = d3.select(map_id.getPanes().overlayPane).append("svg");
-	var svg = this.svg;
- 	var g = svg.append("g").attr("class", "leaflet-zoom-hide");
-	
-	for(precinct in this.json.features) { 
-	
-	
-	
-	}
-
-	
-	
-	
-	
-	},
-	
 	
 	
 	projectVisualization: function(map_id) {
 	
-	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
-	
+
+	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); console.log("removed"); }
+	console.log(this)
 	this.votesLayer = L.geoJson(this.json, { pointToLayer: scaledPoint });
 	this.votesLayer.addTo(map_id);
 	
@@ -116,17 +99,45 @@ voteObject.prototype = {
 
 
 function scaledPoint(feature, latlng) {
-    return L.circleMarker(latlng, {
-        radius: 10,
-        fillColor: "#000",
-        fillOpacity: feature.properties.weightValue,
-        weight: 0.5,
-        color: '#fff'
-    });
-    
+
+var m = 0, //margin
+r = 20, //radius of circles
+z = d3.scale.ordinal().range(["#000000","#ffffff"]), //colors to use. currently black and white
+dump =[];
+dump.push((feature.properties.votes.yes * feature.properties.weightValue), (feature.properties.votes.no * feature.properties.weightValue)) //convert object format - dict to array - for ease of use in pie layout
+
+var svg = d3.select("body").selectAll("svg") //create an svg object
+    .data([dump])
+  .enter().append("svg:svg")
+    .attr("width", (r + m) * 2)
+    .attr("height", (r + m) * 2)
+  .append("svg:g")
+    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")"); 
+
+svg.selectAll("path")
+    .data(d3.layout.pie())
+  .enter().append("svg:path")
+    .attr("d", d3.svg.arc()
+    .innerRadius(0)
+    .outerRadius(r))
+    .style("fill", function(d, i) { return z(i); }) //fill based on color scale
+    .style("fill-opacity", feature.properties.weightValue); //set opacity to weight value
+svg = document.getElementsByTagName("svg")[0]
+svg = serializeXmlNode(svg) //convert svg element to code for divicon
+myIcon = new L.DivIcon({
+            html: svg
+        });
+return L.marker(latlng, {icon: myIcon})  
 }
 
-
+function serializeXmlNode(xmlNode) {
+    if (typeof window.XMLSerializer != "undefined") {
+        return (new window.XMLSerializer()).serializeToString(xmlNode);
+    } else if (typeof xmlNode.xml != "undefined") {
+        return xmlNode.xml;
+    }
+    return "";
+}
 
 
 
@@ -148,11 +159,9 @@ function calculateWeightMultiplier(precinct_location, center_location, weight_va
 
 
   // Multiplied by weighter
-
   var weighter = Math.exp(distance * weight_value * -1.0000);
   return weighter;
 
 }
-
 
 

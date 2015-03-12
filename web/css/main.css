@@ -6,6 +6,12 @@ html {
     line-height: 1.4;
 }
 
+.leaflet-div-icon{
+    background: none;
+    border:none;
+
+}
+
 ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
