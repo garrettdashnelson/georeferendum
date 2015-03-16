@@ -106,15 +106,16 @@ z = d3.scale.ordinal().range(["#000000","#ffffff"]), //colors to use. currently 
 dump =[];
 dump.push((feature.properties.votes.yes * feature.properties.weightValue), (feature.properties.votes.no * feature.properties.weightValue)) //convert object format - dict to array - for ease of use in pie layout
 
-var svg = d3.select("body").selectAll("svg") //create an svg object
+var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+
+var vis = d3.select(svg) //create an svg object
     .data([dump])
-  .enter().append("svg:svg")
     .attr("width", (r + m) * 2)
     .attr("height", (r + m) * 2)
   .append("svg:g")
     .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")"); 
 
-svg.selectAll("path")
+vis.selectAll("path")
     .data(d3.layout.pie())
   .enter().append("svg:path")
     .attr("d", d3.svg.arc()
@@ -122,7 +123,7 @@ svg.selectAll("path")
     .outerRadius(r))
     .style("fill", function(d, i) { return z(i); }) //fill based on color scale
     .style("fill-opacity", feature.properties.weightValue); //set opacity to weight value
-svg = document.getElementsByTagName("svg")[0]
+//svg = document.getElementsByTagName("svg")[0]
 svg = serializeXmlNode(svg) //convert svg element to code for divicon
 myIcon = new L.DivIcon({
             html: svg
