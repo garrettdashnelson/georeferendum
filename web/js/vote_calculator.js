@@ -44,15 +44,8 @@ voteObject.prototype = {
 				if( this.voteResultTable[vote] == null ) { this.voteResultTable[vote] = weighted_vote; }
 				else { this.voteResultTable[vote] += weighted_vote; }
 				
-				}
-		
-		}
-		
-	
-	
-	
-	
-		
+		} }
+			
 	},
 	
 	
@@ -77,28 +70,33 @@ voteObject.prototype = {
 	
 	},
 	
+		
+	projectVisualization: function(map_id, scale_to_fit) {
 	
-	
-	
-	projectVisualization: function(map_id) {
-	
+	// If there's already a pie chart layer, remove it
+	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
 
-	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); console.log("removed"); }
-	console.log(this)
-	this.votesLayer = L.geoJson(this.json, { pointToLayer: scaledPoint });
+	
+	var byVote = d3.nest()
+		.key( function(d) { console.log(d); return d.properties.votes; } )
+		.entries([this.json.features]);
+		
+
+	// Use Leaflet's GeoJSON layer function to build points out of this.json, passing each to the bakePie function
+	this.votesLayer = L.geoJson(this.json, { pointToLayer: bakePie });
 	this.votesLayer.addTo(map_id);
 	
-	map_id.fitBounds(this.votesLayer.getBounds());
+	// Scale the Leaflet map to fit all the points unless we've passed false flag
+	if(scale_to_fit != false) { map_id.fitBounds(this.votesLayer.getBounds()); }
 
 	}
-	
 
 	
 }
 
 
 
-function scaledPoint(feature, latlng) {
+function bakePie(feature, latlng) {
 
 var m = 0, //margin
 r = 20, //radius of circles
