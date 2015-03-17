@@ -8,9 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="css/normalize.min.css">
+        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+
         <link rel="stylesheet" href="css/main.css">
 
-        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -71,12 +72,7 @@
 	
 		v.computeWeights(project_location,0.02);
 		
-
-
 		v.projectVisualization(the_map);
-		console.log(v);
-
-
 
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
 		project_marker.addTo(the_map);

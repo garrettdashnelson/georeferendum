@@ -68,6 +68,13 @@ textarea {
   height: 500px;
 }
 
+.leaflet-div-icon {
+	background: none;
+	border: none;
+	
+	
+}
+
 
 
 

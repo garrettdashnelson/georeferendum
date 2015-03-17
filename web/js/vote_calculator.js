@@ -45,6 +45,19 @@ voteObject.prototype = {
 				else { this.voteResultTable[vote] += weighted_vote; }
 				
 		} }
+		
+	// Figure out what is the most total votes in any precinct so we can size the pie charts
+	var allTotalVotes = [];
+	$.each(this.json.features, function(index, precinct) { 
+	
+	var thisPrecinctTotalVotes = 0;
+	$.each(precinct.properties.votes, function(choice, votes) { thisPrecinctTotalVotes += votes; });
+	
+	allTotalVotes.push(thisPrecinctTotalVotes);
+	
+	});
+	
+	this.maxVotes = d3.max(allTotalVotes);
 			
 	},
 	
@@ -75,59 +88,76 @@ voteObject.prototype = {
 	
 	// If there's already a pie chart layer, remove it
 	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
-
+	var maxVotes = this.maxVotes
 	
-	var byVote = d3.nest()
-		.key( function(d) { console.log(d); return d.properties.votes; } )
-		.entries([this.json.features]);
-		
-
 	// Use Leaflet's GeoJSON layer function to build points out of this.json, passing each to the bakePie function
-	this.votesLayer = L.geoJson(this.json, { pointToLayer: bakePie });
+	this.votesLayer = L.geoJson(this.json, { pointToLayer: bakePie, onEachFeature: createPopup } );
+	
 	this.votesLayer.addTo(map_id);
 	
 	// Scale the Leaflet map to fit all the points unless we've passed false flag
 	if(scale_to_fit != false) { map_id.fitBounds(this.votesLayer.getBounds()); }
 
+			//This function builds the SVG for our pies
+			function bakePie(feature, latlng) {
+			
+			var thisPrecinctVotes = 0;
+			$.each(feature.properties.votes, function(choice, votes) { thisPrecinctVotes += votes; } );
+			
+			
+			var m = 2, //margin
+			r = Math.sqrt(thisPrecinctVotes/maxVotes)*30, //radius of circles
+			width = (r+m)*2,
+			height = (r+m)*2,
+			z = d3.scale.ordinal().range(["#669900","#FF0000","#FFFF66"]); //colors
+
+			dump =[];
+			$.each(feature.properties.votes, function(choice, vote) { dump.push( vote ); });
+
+			var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
+
+			var vis = d3.select(svg) //create an svg object
+				.data([dump])
+				.attr("width", width)
+				.attr("height", height)
+			  .append("svg:g")
+				.attr("transform", "translate(" + (r + m) + "," + (r + m) + ")"); 
+
+			vis.selectAll("path")
+				.data(d3.layout.pie().sort(null) )
+			  .enter().append("svg:path")
+				.attr("d", d3.svg.arc()
+				.innerRadius(r/2)
+				.outerRadius(r))
+				.style("fill", function(d, i) { return z(i); }) //fill based on color scale
+				.style("fill-opacity", feature.properties.weightValue); //set opacity to weight value
+			//svg = document.getElementsByTagName("svg")[0]
+			svg = serializeXmlNode(svg) //convert svg element to code for divicon
+			myIcon = new L.DivIcon({
+						html: svg
+					});
+			return L.marker(latlng, {icon: myIcon})  
+			}
+			
+			
+			//This function creates the popup for each pie
+			function createPopup(feature, layer) { layer.bindPopup(feature.properties.precinct); }
+			
+
+
+
+
 	}
+	
+	
 
 	
 }
 
 
 
-function bakePie(feature, latlng) {
 
-var m = 0, //margin
-r = 20, //radius of circles
-z = d3.scale.ordinal().range(["#000000","#ffffff"]), //colors to use. currently black and white
-dump =[];
-dump.push((feature.properties.votes.yes * feature.properties.weightValue), (feature.properties.votes.no * feature.properties.weightValue)) //convert object format - dict to array - for ease of use in pie layout
 
-var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
-
-var vis = d3.select(svg) //create an svg object
-    .data([dump])
-    .attr("width", (r + m) * 2)
-    .attr("height", (r + m) * 2)
-  .append("svg:g")
-    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")"); 
-
-vis.selectAll("path")
-    .data(d3.layout.pie())
-  .enter().append("svg:path")
-    .attr("d", d3.svg.arc()
-    .innerRadius(0)
-    .outerRadius(r))
-    .style("fill", function(d, i) { return z(i); }) //fill based on color scale
-    .style("fill-opacity", feature.properties.weightValue); //set opacity to weight value
-//svg = document.getElementsByTagName("svg")[0]
-svg = serializeXmlNode(svg) //convert svg element to code for divicon
-myIcon = new L.DivIcon({
-            html: svg
-        });
-return L.marker(latlng, {icon: myIcon})  
-}
 
 function serializeXmlNode(xmlNode) {
     if (typeof window.XMLSerializer != "undefined") {
