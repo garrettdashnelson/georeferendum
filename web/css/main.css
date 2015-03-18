@@ -71,12 +71,16 @@ textarea {
 .leaflet-div-icon {
 	background: none;
 	border: none;
-	
-	
+
 }
 
 
+.popup-vote-results { 
+	font-family: monospace;
+	margin: 10px 0;
+	}
 
+.popup-vote-results td { padding: 2px 4px; }
 
 
 

@@ -68,15 +68,16 @@
         var project_location = [34.18014, -80.276341];
         
   
-  		v = new voteObject(data_file);
+  		v = new voteObject(data_file,project_location);
 	
 		v.computeWeights(project_location,0.02);
 		
 		v.projectVisualization(the_map);
 
+/*
 		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
 		project_marker.addTo(the_map);
-
+*/
 		
 		
 		v.displayVoteTotals("#vote-box");

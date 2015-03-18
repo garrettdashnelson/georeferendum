@@ -1,6 +1,6 @@
 
 
-function voteObject(data_file) {
+function voteObject(data_file,project_location) {
 
 	this.data_file = data_file;
 	this.json = ( function() {
@@ -17,12 +17,30 @@ function voteObject(data_file) {
 			return json;
 		  })();
 	
+	this.project_location = project_location;
+	
+	// Figure out what is the most total votes in any precinct so we can later size the pie charts accordingly
+	var allTotalVotes = [];
+	$.each(this.json.features, function(index, precinct) { 
+	
+	var thisPrecinctTotalVotes = 0;
+	$.each(precinct.properties.votes, function(choice, votes) { thisPrecinctTotalVotes += votes; });
+	
+	allTotalVotes.push(thisPrecinctTotalVotes);
+	
+	});
+	
+	this.maxVotes = d3.max(allTotalVotes);
+			
+
+	
 }
 
 
 voteObject.prototype = {
 
-	computeWeights: function(center_point, weight_value) {
+computeWeights: function(center_point, weight_value) {
+
 	
 	// Create blank voteResultTable object to hold tallied results
 	this.voteResultTable = {};
@@ -46,23 +64,14 @@ voteObject.prototype = {
 				
 		} }
 		
-	// Figure out what is the most total votes in any precinct so we can size the pie charts
-	var allTotalVotes = [];
-	$.each(this.json.features, function(index, precinct) { 
-	
-	var thisPrecinctTotalVotes = 0;
-	$.each(precinct.properties.votes, function(choice, votes) { thisPrecinctTotalVotes += votes; });
-	
-	allTotalVotes.push(thisPrecinctTotalVotes);
-	
-	});
-	
-	this.maxVotes = d3.max(allTotalVotes);
-			
+	// Figure out the halfpoint (assumed in km)
+	this.halfpoint = -1 * ( Math.log(0.5) / weight_value );
+
+		
 	},
 	
 	
-	displayVoteTotals: function(display_div) {
+displayVoteTotals: function(display_div) {
 	
 	var html_fill = "";
 	var voteResultTable = this.voteResultTable;
@@ -84,10 +93,21 @@ voteObject.prototype = {
 	},
 	
 		
-	projectVisualization: function(map_id, scale_to_fit) {
+projectVisualization: function(map_id, scale_to_fit) {
 	
-	// If there's already a pie chart layer, remove it
+	// If layers exists, remove them
 	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
+	if(this.projectMarkerLayer) { map_id.removeLayer(this.projectMarkerLayer); }
+	if(this.projectCircleLayer) { map_id.removeLayer(this.projectCircleLayer); }
+	
+	// Create the project marker 
+	this.projectMarkerLayer = L.marker(this.project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
+	this.projectMarkerLayer.addTo(map_id);
+	
+	// Create the halfpoint circle
+	this.projectCircleLayer = L.circle(this.project_location, this.halfpoint*1000, { fill: false, weight: 2 } );
+	this.projectCircleLayer.addTo(map_id);
+	
 	var maxVotes = this.maxVotes
 	
 	// Use Leaflet's GeoJSON layer function to build points out of this.json, passing each to the bakePie function
@@ -124,14 +144,14 @@ voteObject.prototype = {
 				.attr("transform", "translate(" + (r + m) + "," + (r + m) + ")"); 
 
 			vis.selectAll("path")
-				.data(d3.layout.pie().sort(null) )
+				.data(d3.layout.pie().sort(null))
 			  .enter().append("svg:path")
 				.attr("d", d3.svg.arc()
 				.innerRadius(r/2)
 				.outerRadius(r))
 				.style("fill", function(d, i) { return z(i); }) //fill based on color scale
 				.style("fill-opacity", feature.properties.weightValue); //set opacity to weight value
-			//svg = document.getElementsByTagName("svg")[0]
+
 			svg = serializeXmlNode(svg) //convert svg element to code for divicon
 			myIcon = new L.DivIcon({
 						html: svg
@@ -141,7 +161,24 @@ voteObject.prototype = {
 			
 			
 			//This function creates the popup for each pie
-			function createPopup(feature, layer) { layer.bindPopup(feature.properties.precinct); }
+			function createPopup(feature, layer) {
+			
+			var precinct = feature.properties.precinct?feature.properties.precinct:'Unnamed precinct',
+				weightValue = feature.properties.weightValue?feature.properties.weightValue:1;
+			
+			var html = "<b>" + precinct + '</b><br>Weight: ' + weightValue.toFixed(2) + '<br><table class="popup-vote-results">';
+			
+			$.each(feature.properties.votes, function(choice, vote) {
+			
+			html += "<tr><td>" + choice + "</td><td>";
+			html += vote + "</td><td>";
+			html += (vote*weightValue).toFixed(2) + "</td></tr>";
+			
+			});
+			
+			html += "</table>";
+			
+			layer.bindPopup(html); }
 			
 
 
