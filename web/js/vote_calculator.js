@@ -17,7 +17,7 @@ function voteObject(data_file,project_location) {
 			return json;
 		  })();
 	
-	this.project_location = project_location;
+	this.projectLocation = project_location;
 	
 	// Figure out what is the most total votes in any precinct so we can later size the pie charts accordingly
 	var allTotalVotes = [];
@@ -39,9 +39,12 @@ function voteObject(data_file,project_location) {
 
 voteObject.prototype = {
 
-computeWeights: function(center_point, weight_value) {
+computeWeights: function(weight_value) {
 
-	
+	this.weightValue = weight_value;
+
+	var center_point = this.projectLocation;
+		
 	// Create blank voteResultTable object to hold tallied results
 	this.voteResultTable = {};
 
@@ -64,7 +67,6 @@ computeWeights: function(center_point, weight_value) {
 				
 		} }
 		
-	this.weightValue = weight_value;
 		
 	},
 	
@@ -98,15 +100,15 @@ projectVisualization: function(map_id, scale_to_fit) {
 	this.projectionLayer = L.layerGroup().addTo(map_id);
 	
 	// Create the project markers
-	L.marker(this.project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } ).addTo(this.projectionLayer);
+	L.marker(this.projectLocation, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } ).addTo(this.projectionLayer);
 	
 	// Function to build a circle at a given weight-output value
 	function weightCircle(frac, weight_value) { return -1000 * ( Math.log(frac) / weight_value ); }
 	
 	// Create the fractional circles
-	L.circle(this.project_location, weightCircle(0.5,this.weightValue), { fill: false, weight: 2 } ).addTo(this.projectionLayer);
-	L.circle(this.project_location, weightCircle(0.75,this.weightValue), { fill: false, weight: 4 } ).addTo(this.projectionLayer);
-	L.circle(this.project_location, weightCircle(0.25,this.weightValue), { fill: false, weight: 1 } ).addTo(this.projectionLayer);
+	L.circle(this.projectLocation, weightCircle(0.5,this.weightValue), { fill: false, weight: 2 } ).addTo(this.projectionLayer);
+	L.circle(this.projectLocation, weightCircle(0.75,this.weightValue), { fill: false, weight: 4 } ).addTo(this.projectionLayer);
+	L.circle(this.projectLocation, weightCircle(0.25,this.weightValue), { fill: false, weight: 1 } ).addTo(this.projectionLayer);
 
 
 	
@@ -182,8 +184,46 @@ projectVisualization: function(map_id, scale_to_fit) {
 			layer.bindPopup(html); }
 			
 
+	},
+	
+	
+generateCanvas: function(canvas_id) { 
 
+	var canvas = $(canvas_id).get(0),
+  		context = canvas.getContext("2d");
+  	
+  	for (var i = 2; i < 300; i += 3) {
+  	
+  		var w = (i-0.5)/500;
+  		this.computeWeights(w);
+  		
+  		var h = 0;
+  		var m = 0;
+  		var c = ["#669900","#FF0000","#FFFF66"]; //colors
 
+  		
+  		var total = d3.sum(d3.values(this.voteResultTable));
+
+		$.each(this.voteResultTable, function(choice, vote) {
+		context.beginPath();
+		context.moveTo(i,h);
+  		h += vote/total*100;
+  		context.lineTo(i, h);
+  		context.lineWidth=3;
+  		context.strokeStyle=c[m];
+  		context.stroke();
+  		m += 1;
+
+  		});
+  		
+  		context.beginPath();
+		context.moveTo(0,49.5);
+		context.lineTo(301,49.5);
+		context.lineWidth=1;
+		context.strokeStyle="#ccc";
+		context.stroke();
+  		
+  	}
 
 	}
 	

@@ -26,17 +26,14 @@
         <div id="mapbox"></div>
 
 
-        <div id="vote-box"></div>
+        <div id="vote_box"></div>
         <div id="calc_box">
-        <div id="weight_slider" style="width: 80%;margin: 0 0 20px 0; clear: both;">
+        <div id="weight_slider" style="width: 300px; margin: 0 0 20px 0; clear: both;">
         <div style="clear:both;"></div>
         <div id="weight" style="clear:both;">0.02</div>
-        
-        <!---
-        <input type="button" value="Change Weight Value" onClick="SimpleDisplayCalculator('#vote-box','leecounty.json','landfill_referendum.json',[-80.1826899, 34.2923147],$('#weight').val());">
-		-->
-		
         </div>
+        
+        <canvas id="votes_graph" width="500" height="100"></canvas>
 
 		<!-- jQuery -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -70,19 +67,12 @@
   
   		v = new voteObject(data_file,project_location);
 	
-		v.computeWeights(project_location,0.02);
-		
+		v.computeWeights(0.02);	
+		v.displayVoteTotals("#vote_box");
 		v.projectVisualization(the_map);
-
-/*
-		project_marker = L.marker(project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
-		project_marker.addTo(the_map);
-*/
+		v.generateCanvas("#votes_graph");
+	
 		
-		
-		v.displayVoteTotals("#vote-box");
-
-
 		$("#weight_slider").slider( {
 			value: 10,
 			change: function(event,ui) { 
@@ -90,7 +80,7 @@
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
 					
-					v.computeWeights(project_location,changed_weight_val);v.displayVoteTotals("#vote-box");v.projectVisualization(the_map,false); }
+					v.computeWeights(changed_weight_val);v.displayVoteTotals("#vote_box");v.projectVisualization(the_map,false); }
 			}
 		 );
 
