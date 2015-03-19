@@ -64,9 +64,7 @@ computeWeights: function(center_point, weight_value) {
 				
 		} }
 		
-	// Figure out the halfpoint (assumed in km)
-	this.halfpoint = -1 * ( Math.log(0.5) / weight_value );
-
+	this.weightValue = weight_value;
 		
 	},
 	
@@ -96,24 +94,27 @@ displayVoteTotals: function(display_div) {
 projectVisualization: function(map_id, scale_to_fit) {
 	
 	// If layers exists, remove them
-	if(this.votesLayer) { map_id.removeLayer(this.votesLayer); }
-	if(this.projectMarkerLayer) { map_id.removeLayer(this.projectMarkerLayer); }
-	if(this.projectCircleLayer) { map_id.removeLayer(this.projectCircleLayer); }
+	if(this.projectionLayer) { map_id.removeLayer(this.projectionLayer); }
+	this.projectionLayer = L.layerGroup().addTo(map_id);
 	
-	// Create the project marker 
-	this.projectMarkerLayer = L.marker(this.project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } );
-	this.projectMarkerLayer.addTo(map_id);
+	// Create the project markers
+	L.marker(this.project_location, { icon: L.mapbox.marker.icon({'marker-color':'#fa0'}) } ).addTo(this.projectionLayer);
 	
-	// Create the halfpoint circle
-	this.projectCircleLayer = L.circle(this.project_location, this.halfpoint*1000, { fill: false, weight: 2 } );
-	this.projectCircleLayer.addTo(map_id);
+	// Function to build a circle at a given weight-output value
+	function weightCircle(frac, weight_value) { return -1000 * ( Math.log(frac) / weight_value ); }
+	
+	// Create the fractional circles
+	L.circle(this.project_location, weightCircle(0.5,this.weightValue), { fill: false, weight: 2 } ).addTo(this.projectionLayer);
+	L.circle(this.project_location, weightCircle(0.75,this.weightValue), { fill: false, weight: 4 } ).addTo(this.projectionLayer);
+	L.circle(this.project_location, weightCircle(0.25,this.weightValue), { fill: false, weight: 1 } ).addTo(this.projectionLayer);
+
+
 	
 	var maxVotes = this.maxVotes
 	
 	// Use Leaflet's GeoJSON layer function to build points out of this.json, passing each to the bakePie function
 	this.votesLayer = L.geoJson(this.json, { pointToLayer: bakePie, onEachFeature: createPopup } );
-	
-	this.votesLayer.addTo(map_id);
+	this.votesLayer.addTo(this.projectionLayer);
 	
 	// Scale the Leaflet map to fit all the points unless we've passed false flag
 	if(scale_to_fit != false) { map_id.fitBounds(this.votesLayer.getBounds()); }
