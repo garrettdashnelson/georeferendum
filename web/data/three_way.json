@@ -5,8 +5,8 @@
       "type": "Feature",
       "properties": {
         "votes": {
-          "yes": 15000,
-          "no": 12000
+          "yes": 28000,
+          "no": 9000
         },
         "precinct": "Madison",
         "id": 1
@@ -23,15 +23,32 @@
       "properties": {
         "votes": {
           "yes": 100,
-          "no": 2000
+          "no": 7600
         },
-        "precinct": "Sun Prairie",
+        "precinct": "Shorewood Hills",
         "id": 2
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-      -89.226006,43.181397
+      -89.443745,43.077289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "votes": {
+          "yes": 2000,
+          "no": 14500
+        },
+        "precinct": "Fitchburg",
+        "id": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+     -89.425066,43.001352
         ]
       }
     }

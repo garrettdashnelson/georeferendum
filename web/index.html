@@ -9,7 +9,6 @@
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
-
         <link rel="stylesheet" href="css/main.css">
 
 
@@ -20,20 +19,32 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <h1>Propinquity vote project</h1>
+	<div id="wrapper">
+	
+        <h1>&#9675; Propinquity voting</h1>
+
+		<div id="example_chooser"><select id="example_selector"></select></div>
 
 
         <div id="mapbox"></div>
 
 
-        <div id="vote_box"></div>
-        <div id="calc_box">
-        <div id="weight_slider" style="width: 300px; margin: 0 0 20px 0; clear: both;">
-        <div style="clear:both;"></div>
-        <div id="weight" style="clear:both;">0.02</div>
+        <div id="vote_box">
+        <h3>Results</h3>
+        <div id="vote_box_results"></div>
         </div>
         
-        <canvas id="votes_graph" width="500" height="100"></canvas>
+        <div id="controls_box">
+        <h3>Weight slider</h3>
+        <div id="weight_slider"></div><div id="weight">0.02</div>
+       
+        <div id="votes_graph"></div>
+        </div>
+        
+
+
+
+	</div><!-- #wrapper -->
 
 		<!-- jQuery -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -53,24 +64,57 @@
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
-
         <script src="js/vote_calculator.js"></script>
 
         <script>
 
+		// Build the Mapbox map
  		L.mapbox.accessToken = "pk.eyJ1IjoiZ2FycmV0dG5lbHNvbiIsImEiOiJobnR2YjdRIn0.iANqBs5R5cw3euoH_62X4g";
         var the_map = L.mapbox.map('mapbox','examples.map-i86nkdio');
 
-        var data_file = "../data/leecounty_landfill_referendum.json";
-        var project_location = [34.18014, -80.276341];
+		// Check if we have a hash; if not, we're working with the `lee_county` example
+		if ( window.location.hash ) { var example_id = window.location.hash.substring(1); }
+		else {var example_id = "lee_county"; window.location.hash = "lee_county"; }		
+
+		var example_database = ( function() {
+    	var json = null;
+			$.ajax({
+			  'async': false,
+			  'global': false,
+			  'url': './examples.json',
+			  'dataType': "json",
+			  'error': function(error) { window.alert("Couldn't load examples database file!"); },
+			  'success': function(data) {
+				json = data;
+			  }
+			});
+			return json;
+		  })();
+		
+		
+		if( example_database[example_id] && example_database[example_id].data_file && example_database[example_id].project_location) {
+		var data_file = example_database[example_id].data_file;	
+		var project_location = example_database[example_id].project_location;
+		} else { window.alert("There's a problem with the example data"); } 
+		
+		$.each( example_database, function(index, example) { 
+		
+		var optionData = {};
+		optionData.value = index;
+		optionData.text = example.name;
+		if(index == window.location.hash.substring(1)) { optionData.selected = true; }
+		
+		choice = $('<option>', optionData);
+		choice.appendTo("#example_selector");	
+		});
+       
         
-  
   		v = new voteObject(data_file,project_location);
 	
 		v.computeWeights(0.02);	
-		v.displayVoteTotals("#vote_box");
+		v.displayVoteTotals("#vote_box_results");
 		v.projectVisualization(the_map);
-		v.generateCanvas("#votes_graph");
+		v.generateCanvas("#votes_graph",$("#weight_slider").width(),200);
 	
 		
 		$("#weight_slider").slider( {
@@ -79,10 +123,10 @@
 			
 					changed_weight_val = ui.value/500;
 					$("#weight").html( changed_weight_val );
-					
-					v.computeWeights(changed_weight_val);v.displayVoteTotals("#vote_box");v.projectVisualization(the_map,false); }
+					v.computeWeights(changed_weight_val);v.displayVoteTotals("#vote_box_results");v.projectVisualization(the_map,false); }
 			}
 		 );
+		 
 
 	
 

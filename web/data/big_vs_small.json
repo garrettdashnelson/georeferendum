@@ -1,0 +1,56 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "votes": {
+          "yes": 19000,
+          "no": 12000
+        },
+        "precinct": "Madison",
+        "id": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.381775,43.072838
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "votes": {
+          "yes": 100,
+          "no": 2600
+        },
+        "precinct": "Sun Prairie",
+        "id": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+      -89.226006,43.181397
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "votes": {
+          "yes": 25,
+          "no": 350
+        },
+        "precinct": "Burke",
+        "id": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+     -89.276032, 43.135942
+        ]
+      }
+    }
+  ]
+}

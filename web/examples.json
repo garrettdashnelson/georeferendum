@@ -1,0 +1,24 @@
+{ 
+	"lee_county": { 	
+		"name": "Lee County, SC 1992 Landfill Referendum",
+		"data_file": "leecounty_landfill_referendum.json",
+		"project_location": [34.18014, -80.276341],
+		"notes" : ""
+	},
+	
+	"big_vs_small": { 	
+		"name": "Big City vs Small City",
+		"data_file": "big_vs_small.json",
+		"project_location": [43.163745,-89.29191],
+		"notes" : ""
+	},
+	
+	"three_way": { 	
+		"name": "No to Yes to No",
+		"data_file": "three_way.json",
+		"project_location": [43.074781,-89.433617],
+		"notes" : ""
+	}
+	
+	
+}

@@ -8,7 +8,7 @@ function voteObject(data_file,project_location) {
 			$.ajax({
 			  'async': false,
 			  'global': false,
-			  'url': '../data/' + data_file,
+			  'url': 'data/' + data_file,
 			  'dataType': "json",
 			  'success': function(data) {
 				json = data;
@@ -73,20 +73,24 @@ computeWeights: function(weight_value) {
 	
 displayVoteTotals: function(display_div) {
 	
-	var html_fill = "";
+	var html_fill = "<table>";
 	var voteResultTable = this.voteResultTable;
+	var total = d3.sum(d3.values(voteResultTable));
+
 	
 	for (key in voteResultTable) {
 
+	html_fill += "<tr><td>";
     html_fill += key;
-    html_fill += ":";
-    html_fill += voteResultTable[key];
+    html_fill += "</td><td>";
+    html_fill += voteResultTable[key].toFixed(2);
     html_fill += " (";
-//     html_fill += voteResultTable[key]/total_votes * 100;
+	html_fill += (voteResultTable[key] / total * 100).toFixed(2);
     html_fill += "%)";
-    html_fill += "<br>";
+    html_fill += "</td></tr>";
 
   }
+  	html_fill += "</table>";
 		
 		$(display_div).html(html_fill);
 	
@@ -187,15 +191,22 @@ projectVisualization: function(map_id, scale_to_fit) {
 	},
 	
 	
-generateCanvas: function(canvas_id) { 
+generateCanvas: function(canvas_id,width,height) { 
 
-	var canvas = $(canvas_id).get(0),
-  		context = canvas.getContext("2d");
+
+	var base = d3.select(canvas_id);
+	var graph = base.append("canvas").attr("width",width).attr("height",height);
+
+	var context = graph.node().getContext("2d");
+	
+  	for (var i = 0; i < 101; i += 1) {
   	
-  	for (var i = 2; i < 300; i += 3) {
-  	
-  		var w = (i-0.5)/500;
+  		
+  		var w = (i)/500;
   		this.computeWeights(w);
+  		
+  		var z = 100/width;
+  		var x = i / z;
   		
   		var h = 0;
   		var m = 0;
@@ -206,10 +217,10 @@ generateCanvas: function(canvas_id) {
 
 		$.each(this.voteResultTable, function(choice, vote) {
 		context.beginPath();
-		context.moveTo(i,h);
-  		h += vote/total*100;
-  		context.lineTo(i, h);
-  		context.lineWidth=3;
+		context.moveTo(x,h);
+  		h += vote/total*height;
+  		context.lineTo(x, h);
+  		context.lineWidth=Math.floor(1/z);
   		context.strokeStyle=c[m];
   		context.stroke();
   		m += 1;
@@ -217,8 +228,8 @@ generateCanvas: function(canvas_id) {
   		});
   		
   		context.beginPath();
-		context.moveTo(0,49.5);
-		context.lineTo(301,49.5);
+		context.moveTo(0,Math.floor(height/2)+0.5);
+		context.lineTo(width+1,Math.floor(height/2)+0.5);
 		context.lineWidth=1;
 		context.strokeStyle="#ccc";
 		context.stroke();
