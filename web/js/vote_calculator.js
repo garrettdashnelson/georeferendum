@@ -1,4 +1,4 @@
-
+var color_ramp = ['rgb(217,95,14)','rgb(254,196,79)','rgb(255,247,188)'];
 
 function voteObject(data_file,project_location) {
 
@@ -136,7 +136,7 @@ projectVisualization: function(map_id, scale_to_fit) {
 			r = Math.sqrt(thisPrecinctVotes/maxVotes)*30, //radius of circles
 			width = (r+m)*2,
 			height = (r+m)*2,
-			z = d3.scale.ordinal().range(["#669900","#FF0000","#FFFF66"]); //colors
+			z = d3.scale.ordinal().range(color_ramp); //colors
 
 			dump =[];
 			$.each(feature.properties.votes, function(choice, vote) { dump.push( vote ); });
@@ -210,7 +210,7 @@ generateCanvas: function(canvas_id,width,height) {
   		
   		var h = 0;
   		var m = 0;
-  		var c = ["#669900","#FF0000","#FFFF66"]; //colors
+  		var c = color_ramp; //colors
 
   		
   		var total = d3.sum(d3.values(this.voteResultTable));
