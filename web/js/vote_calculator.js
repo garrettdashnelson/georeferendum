@@ -193,9 +193,11 @@ projectVisualization: function(map_id, scale_to_fit) {
 	
 generateCanvas: function(canvas_id,width,height) { 
 
-
+	var current_graph = d3.select("#votes_graph_canvas");
+	current_graph.remove();
+	
 	var base = d3.select(canvas_id);
-	var graph = base.append("canvas").attr("width",width).attr("height",height);
+	var graph = base.append("canvas").attr("width",width).attr("height",height).attr("id","votes_graph_canvas");
 
 	var context = graph.node().getContext("2d");
 	
