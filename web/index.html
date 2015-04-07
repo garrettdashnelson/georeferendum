@@ -35,7 +35,7 @@
         </div>
         
         <div id="controls_box">
-        <h3>Weight slider</h3>
+        <h3>&#968;-value</h3>
         <div id="weight_slider"></div><div id="weight">0.02</div>
        
         <div id="votes_graph"></div>
@@ -76,6 +76,7 @@
 		if ( window.location.hash ) { var example_id = window.location.hash.substring(1); }
 		else {var example_id = "lee_county"; window.location.hash = "lee_county"; }
 		
+		// Load the database of examples
 		var example_database = ( function() {
     	var json = null;
 			$.ajax({
@@ -92,7 +93,7 @@
 		  })();
 		  
 	
-		
+		// Create the drop-down menu out of the database of examples
 		$.each( example_database, function(index, example) { 
 		
 		var optionData = {};
@@ -114,6 +115,7 @@
 		 );
 		
 		
+		// Function to initialize an example
 		function initializeExample(example_id) {
 		
 		
@@ -132,17 +134,16 @@
 		v.projectVisualization(the_map);
 		v.generateCanvas("#votes_graph",$("#weight_slider").width(),200);		
 		
-		window.location.hash = example_id; 
+		window.location.hash = example_id;
+		$('#weight_slider').slider('value', 10);
 	
 		}
 
-			
-		initializeExample("lee_county");
-
 		
 
-		 
-		 $("#example_selector").change( function() { initializeExample($("#example_selector").val()); } );
+		$( document ).ready( function() { initializeExample(example_id); } );
+ 
+		$("#example_selector").change( function() { initializeExample($("#example_selector").val()); } );
 		 
 
 	
