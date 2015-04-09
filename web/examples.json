@@ -18,7 +18,15 @@
 		"data_file": "three_way.json",
 		"project_location": [43.074781,-89.433617],
 		"notes" : ""
+	},
+
+	"lee_county_alternative": { 	
+		"name": "Lee County Referendum With Different Location",
+		"data_file": "leecounty_landfill_referendum.json",
+		"project_location": [34.090767,-80.222881],
+		"notes" : ""
 	}
+	
 	
 	
 }
